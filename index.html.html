@@ -1,236 +1,673 @@
-
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield AI — Kiberxavfsizlik Himoyachisi</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans)}
-.site{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
-.logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:var(--color-text-primary)}
-.logo-icon{width:28px;height:28px;background:#0F6E56;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
-.nav-links{display:flex;gap:20px;font-size:13px;color:var(--color-text-secondary)}
-.nav-links span{cursor:pointer}
-.nav-cta{font-size:13px;padding:6px 14px;border-radius:var(--border-radius-md);background:#0F6E56;color:#fff;border:none;cursor:pointer}
-.hero{padding:48px 24px 40px;text-align:center;border-bottom:0.5px solid var(--color-border-tertiary)}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 12px;border-radius:20px;background:#E1F5EE;color:#0F6E56;margin-bottom:16px}
-.hero h1{font-size:28px;font-weight:500;color:var(--color-text-primary);line-height:1.3;margin-bottom:12px}
-.hero-sub{font-size:14px;color:var(--color-text-secondary);line-height:1.6;max-width:420px;margin:0 auto 24px}
-.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.btn-primary{padding:10px 22px;border-radius:var(--border-radius-md);background:#0F6E56;color:#fff;border:none;font-size:14px;cursor:pointer}
-.btn-secondary{padding:10px 22px;border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);font-size:14px;cursor:pointer}
-.scan-demo{margin:28px auto 0;max-width:480px;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:16px}
-.scan-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:8px}
-.scan-input{display:flex;gap:8px}
-.scan-input input{flex:1;font-size:13px;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-primary)}
-.scan-input button{padding:8px 14px;border-radius:var(--border-radius-md);background:#0F6E56;color:#fff;border:none;font-size:13px;cursor:pointer}
-.scan-result{margin-top:10px;padding:10px 12px;border-radius:var(--border-radius-md);font-size:13px;display:none;align-items:center;gap:8px}
-.scan-result.safe{background:#E1F5EE;color:#0F6E56;display:flex}
-.scan-result.danger{background:#FCEBEB;color:#A32D2D;display:flex}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--color-border-tertiary);border-top:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary)}
-.stat{padding:20px 16px;text-align:center;background:var(--color-background-primary)}
-.stat-num{font-size:22px;font-weight:500;color:#0F6E56}
-.stat-label{font-size:12px;color:var(--color-text-secondary);margin-top:4px}
-.section{padding:32px 24px;border-bottom:0.5px solid var(--color-border-tertiary)}
-.section-title{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px}
-.section-sub{font-size:13px;color:var(--color-text-secondary);margin-bottom:20px}
-.features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.feature{padding:16px;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
-.feature-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:16px}
-.feature h3{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
-.feature p{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
-.how-steps{display:flex;flex-direction:column;gap:12px}
-.step{display:flex;align-items:flex-start;gap:14px;padding:14px;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary)}
-.step-num{width:28px;height:28px;border-radius:50%;background:#E1F5EE;color:#0F6E56;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step-text h4{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
-.step-text p{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
-.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.plan{padding:16px;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);text-align:center}
-.plan.popular{border:2px solid #0F6E56}
-.plan-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:#E1F5EE;color:#0F6E56;display:inline-block;margin-bottom:8px}
-.plan-name{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
-.plan-price{font-size:22px;font-weight:500;color:#0F6E56;margin-bottom:4px}
-.plan-period{font-size:11px;color:var(--color-text-secondary);margin-bottom:12px}
-.plan-features{text-align:left;font-size:12px;color:var(--color-text-secondary);display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.plan-features span{display:flex;align-items:center;gap:6px}
-.plan-features i{color:#0F6E56;font-size:14px}
-.plan-btn{width:100%;padding:8px;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;border:0.5px solid #0F6E56;background:transparent;color:#0F6E56}
-.plan.popular .plan-btn{background:#0F6E56;color:#fff;border:none}
-.footer{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--color-text-secondary)}
-.footer-links{display:flex;gap:16px}
+  :root {
+    --green: #0F6E56;
+    --green-light: #E1F5EE;
+    --green-mid: #1D9E75;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --border: rgba(0,0,0,0.1);
+    --bg: #ffffff;
+    --bg2: #f7f8f6;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 34px; height: 34px; background: var(--green);
+    border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  }
+  .logo-icon svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .logo-text { font-size: 16px; font-weight: 600; color: var(--text); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; color: var(--text-muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--green); color: #fff; border: none;
+    padding: 9px 20px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; cursor: pointer; transition: opacity .2s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+  .burger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .burger svg { width: 22px; height: 22px; stroke: var(--text); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .mobile-menu {
+    display: none; flex-direction: column; gap: 0;
+    background: var(--bg); border-bottom: 0.5px solid var(--border);
+    padding: 8px 40px 16px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { text-decoration: none; font-size: 15px; color: var(--text-muted); padding: 10px 0; border-bottom: 0.5px solid var(--border); }
+  .mobile-menu a:last-of-type { border: none; }
+  .mobile-cta {
+    margin-top: 10px; background: var(--green); color: #fff;
+    border: none; padding: 11px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; cursor: pointer; width: 100%;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 40px 64px;
+    text-align: center;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-light); color: var(--green);
+    font-size: 13px; font-weight: 500;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 24px;
+  }
+  .hero-badge svg { width: 14px; height: 14px; stroke: var(--green); fill: none; stroke-width: 2; }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 700; line-height: 1.2;
+    max-width: 640px; margin: 0 auto 18px;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 span { color: var(--green); }
+  .hero-sub {
+    font-size: 17px; color: var(--text-muted);
+    max-width: 480px; margin: 0 auto 32px; line-height: 1.65;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .btn-primary {
+    background: var(--green); color: #fff; border: none;
+    padding: 13px 28px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+    padding: 13px 28px; border-radius: var(--radius-sm);
+    font-size: 15px; cursor: pointer; transition: background .2s;
+  }
+  .btn-ghost:hover { background: var(--bg2); }
+
+  /* SCAN BOX */
+  .scan-box {
+    max-width: 520px; margin: 0 auto;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px;
+  }
+  .scan-label { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+  .scan-tabs { display: flex; gap: 4px; margin-bottom: 14px; background: var(--border); border-radius: var(--radius-sm); padding: 3px; }
+  .scan-tab {
+    flex: 1; padding: 7px; border-radius: 6px; border: none;
+    background: transparent; font-size: 13px; cursor: pointer;
+    color: var(--text-muted); transition: all .18s;
+  }
+  .scan-tab.active { background: var(--bg); color: var(--text); font-weight: 500; }
+  .scan-input-row { display: flex; gap: 8px; }
+  .scan-input-row input, .scan-input-row textarea {
+    flex: 1; padding: 10px 14px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border); background: var(--bg);
+    font-size: 14px; color: var(--text); font-family: inherit; resize: none;
+    outline: none; transition: border-color .2s;
+  }
+  .scan-input-row input:focus, .scan-input-row textarea:focus { border-color: var(--green); }
+  .scan-btn {
+    padding: 10px 18px; background: var(--green); color: #fff;
+    border: none; border-radius: var(--radius-sm); font-size: 14px;
+    font-weight: 500; cursor: pointer; white-space: nowrap; transition: opacity .2s;
+  }
+  .scan-btn:hover { opacity: 0.88; }
+  .scan-result {
+    margin-top: 12px; padding: 12px 14px; border-radius: var(--radius-sm);
+    font-size: 14px; display: none; align-items: flex-start; gap: 10px; line-height: 1.5;
+  }
+  .scan-result svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; fill: none; stroke-width: 2; stroke-linecap: round; }
+  .scan-result.safe { background: var(--green-light); color: #0a5c47; display: flex; }
+  .scan-result.safe svg { stroke: var(--green); }
+  .scan-result.danger { background: #FCEBEB; color: #9b1c1c; display: flex; }
+  .scan-result.danger svg { stroke: #e24b4a; }
+  .scan-result.loading { background: var(--bg2); color: var(--text-muted); display: flex; }
+  .scan-result.loading svg { stroke: var(--text-muted); animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* STATS */
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .stat {
+    padding: 28px 20px; text-align: center;
+    border-right: 0.5px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-size: 30px; font-weight: 700; color: var(--green); }
+  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+  /* SECTIONS */
+  section { padding: 64px 40px; border-bottom: 0.5px solid var(--border); }
+  .section-eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--green); margin-bottom: 10px;
+  }
+  .section-title { font-size: clamp(22px, 3vw, 32px); font-weight: 700; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .section-sub { font-size: 15px; color: var(--text-muted); max-width: 520px; }
+  .section-header { margin-bottom: 36px; }
+
+  /* FEATURES */
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .feature-card {
+    padding: 22px; border-radius: var(--radius);
+    border: 1px solid var(--border); background: var(--bg);
+    transition: border-color .2s;
+  }
+  .feature-card:hover { border-color: var(--green-mid); }
+  .feature-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .feature-icon svg { width: 20px; height: 20px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .feature-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* HOW IT WORKS */
+  .how-bg { background: var(--bg2); }
+  .steps { display: flex; flex-direction: column; gap: 0; max-width: 600px; }
+  .step {
+    display: flex; gap: 20px; padding: 24px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--green);
+    color: #fff; font-size: 15px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .step-body h4 { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+  .step-body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* THREATS */
+  .threats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .threat-card {
+    padding: 18px; border-radius: var(--radius);
+    border: 1px solid var(--border); background: var(--bg);
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .threat-icon {
+    width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .threat-icon svg { width: 17px; height: 17px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .threat-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .threat-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* PRICING */
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 760px; }
+  .plan {
+    padding: 24px; border-radius: var(--radius);
+    border: 1px solid var(--border); background: var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .plan.featured { border: 2px solid var(--green); background: var(--bg); }
+  .plan-badge {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    background: var(--green-light); color: var(--green);
+    padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+  }
+  .plan-name { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .plan-price { font-size: 26px; font-weight: 700; color: var(--green); }
+  .plan-period { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .plan-divider { height: 0.5px; background: var(--border); margin-bottom: 16px; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 9px; flex: 1; margin-bottom: 20px; }
+  .plan-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); }
+  .plan-features li svg { width: 15px; height: 15px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; flex-shrink: 0; }
+  .plan-btn {
+    width: 100%; padding: 11px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; cursor: pointer; transition: all .2s;
+    border: 1px solid var(--green); background: transparent; color: var(--green);
+  }
+  .plan-btn:hover { background: var(--green-light); }
+  .plan.featured .plan-btn { background: var(--green); color: #fff; }
+  .plan.featured .plan-btn:hover { opacity: 0.88; }
+
+  /* TESTIMONIALS */
+  .test-bg { background: var(--bg2); }
+  .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .testimonial {
+    padding: 20px; border-radius: var(--radius);
+    background: var(--bg); border: 1px solid var(--border);
+  }
+  .stars { color: #f59e0b; font-size: 14px; margin-bottom: 10px; letter-spacing: 2px; }
+  .testimonial p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+  }
+  .reviewer-info .name { font-size: 13px; font-weight: 600; }
+  .reviewer-info .role { font-size: 12px; color: var(--text-muted); }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center; padding: 72px 40px;
+    background: var(--green);
+  }
+  .cta-section h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #fff; margin-bottom: 12px; }
+  .cta-section p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 28px; }
+  .btn-white {
+    background: #fff; color: var(--green); border: none;
+    padding: 13px 30px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .2s;
+  }
+  .btn-white:hover { opacity: 0.9; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 40px;
+    display: flex; flex-wrap: wrap; gap: 16px;
+    justify-content: space-between; align-items: center;
+    border-top: 0.5px solid var(--border);
+  }
+  .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .footer-logo span { font-size: 14px; font-weight: 600; color: var(--text); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy { font-size: 13px; color: var(--text-muted); }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .nav-links, .nav-cta { display: none; }
+    .burger { display: block; }
+    .mobile-menu { padding: 8px 20px 16px; }
+    .hero { padding: 48px 20px 40px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    section { padding: 48px 20px; }
+    footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    .cta-section { padding: 48px 20px; }
+  }
 </style>
+</head>
+<body>
 
-<h2 class="sr-only">CyberShield AI — O'zbek tilida kiberxavfsizlik saytining to'liq dizayn maketi</h2>
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <span class="logo-text">CyberShield AI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Imkoniyatlar</a></li>
+    <li><a href="#how">Qanday ishlaydi</a></li>
+    <li><a href="#pricing">Narxlar</a></li>
+    <li><a href="#about">Biz haqimizda</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('scan-input-main').focus()">Bepul boshlash</button>
+  <button class="burger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menyu">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu">
+  <a href="#features">Imkoniyatlar</a>
+  <a href="#how">Qanday ishlaydi</a>
+  <a href="#pricing">Narxlar</a>
+  <a href="#about">Biz haqimizda</a>
+  <button class="mobile-cta">Bepul boshlash</button>
+</div>
 
-<div class="site">
-  <nav class="nav">
-    <div class="logo">
-      <div class="logo-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
-      CyberShield AI
-    </div>
-    <div class="nav-links">
-      <span>Imkoniyatlar</span>
-      <span>Qanday ishlaydi</span>
-      <span>Narxlar</span>
-    </div>
-    <button class="nav-cta">Bepul boshlash</button>
-  </nav>
-
-  <div class="hero">
-    <div class="hero-badge"><i class="ti ti-sparkles" style="font-size:13px" aria-hidden="true"></i> O'zbekistondagi birinchi AI himoyachisi</div>
-    <h1>Internetda xavfsiz bo'ling — har doim, har joyda</h1>
-    <p class="hero-sub">Har qanday havola, xabar yoki faylni bir zumda tekshiring. AI sizni fishing, scam va kiberhujumlardan himoya qiladi.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="sendPrompt('CyberShield AI saytini qanday qilishim kerak, HTML kodi ber')">Bepul boshlash</button>
-      <button class="btn-secondary">Qanday ishlashini ko'rish</button>
-    </div>
-    <div class="scan-demo">
-      <div class="scan-label"><i class="ti ti-link" style="font-size:13px;vertical-align:-1px;margin-right:4px" aria-hidden="true"></i>Havolani tekshiring</div>
-      <div class="scan-input">
-        <input type="text" id="link-input" placeholder="https://misol.com/havola..." value=""/>
-        <button onclick="checkLink()">Tekshirish</button>
-      </div>
-      <div class="scan-result" id="scan-result"></div>
-    </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    O'zbekistondagi birinchi AI kiberxavfsizlik xizmati
+  </div>
+  <h1>Internetda <span>xavfsiz</span> bo'ling — har doim, har joyda</h1>
+  <p class="hero-sub">Fishing, scam va kiberhujumlardan himoya qiling. Har qanday havola, xabar yoki rasmni bir zumda tekshiring.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('scan-input-main').focus()">Hozir tekshirish</button>
+    <button class="btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Qanday ishlashini ko'ring</button>
   </div>
 
-  <div class="stats">
-    <div class="stat"><div class="stat-num">2M+</div><div class="stat-label">Tekshirilgan havola</div></div>
-    <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Aniqlik darajasi</div></div>
-    <div class="stat"><div class="stat-num">50K+</div><div class="stat-label">Foydalanuvchi</div></div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Nima uchun CyberShield AI?</div>
-    <div class="section-sub">Boshqa ilovalar yo'q qilmagan muammolarni hal qilamiz</div>
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon" style="background:#E1F5EE;color:#0F6E56"><i class="ti ti-link" aria-hidden="true"></i></div>
-        <h3>Havola tekshirish</h3>
-        <p>Har qanday URL manzilni 3 soniyada tahlil qiladi — xavfsiz yoki xavfli ekanini aytadi</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon" style="background:#E6F1FB;color:#185FA5"><i class="ti ti-brain" aria-hidden="true"></i></div>
-        <h3>Manipulyatsiya detektori</h3>
-        <p>Aldov xabarlarni psixologik tahlil qiladi — "Yutdingiz!" kabi scamlarni topadi</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon" style="background:#FAEEDA;color:#854F0B"><i class="ti ti-photo-scan" aria-hidden="true"></i></div>
-        <h3>Surat skaneri</h3>
-        <p>Screenshot yuborasiz — AI undagi soxta saytlar va aldovlarni topadi</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon" style="background:#FBEAF0;color:#993556"><i class="ti ti-users" aria-hidden="true"></i></div>
-        <h3>Oilaviy himoya</h3>
-        <p>Farzandlaringizni onlayn xavflardan saqlang — maxsus bolalar rejimi</p>
-      </div>
+  <div class="scan-box">
+    <div class="scan-label">Tekshirish turi</div>
+    <div class="scan-tabs">
+      <button class="scan-tab active" onclick="switchTab(this,'link')">Havola</button>
+      <button class="scan-tab" onclick="switchTab(this,'text')">Xabar matni</button>
     </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Qanday ishlaydi?</div>
-    <div class="section-sub">3 ta oddiy qadam</div>
-    <div class="how-steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">
-          <h4>Shubhali narsani yuboring</h4>
-          <p>Havola, xabar, surat yoki faylni CyberShield'ga yuboring — telefon yoki kompyuterdan</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">
-          <h4>AI tahlil qiladi</h4>
-          <p>Sun'iy intellekt 3 soniyada 50+ parametr bo'yicha tekshiradi va xavf darajasini aniqlaydi</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">
-          <h4>Natija va maslahat olasiz</h4>
-          <p>Xavfsizmi yoki yo'qmi — oddiy o'zbek tilida tushuntiriladi va nima qilish kerakligi aytiladi</p>
-        </div>
-      </div>
+    <div class="scan-input-row" id="tab-link">
+      <input type="text" id="scan-input-main" placeholder="https://shubhali-havola.com/..." />
+      <button class="scan-btn" onclick="runScan()">Tekshirish</button>
     </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Narxlar</div>
-    <div class="section-sub">Har kim uchun mos tarif</div>
-    <div class="pricing">
-      <div class="plan">
-        <div class="plan-name">Bepul</div>
-        <div class="plan-price">0 so'm</div>
-        <div class="plan-period">har doim bepul</div>
-        <div class="plan-features">
-          <span><i class="ti ti-check" aria-hidden="true"></i>5 ta tekshiruv/kun</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>Havola skaneri</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>O'zbek tili</span>
-        </div>
-        <button class="plan-btn">Boshlash</button>
-      </div>
-      <div class="plan popular">
-        <div class="plan-badge">Eng mashhur</div>
-        <div class="plan-name">Pro</div>
-        <div class="plan-price">29 000 so'm</div>
-        <div class="plan-period">oyiga</div>
-        <div class="plan-features">
-          <span><i class="ti ti-check" aria-hidden="true"></i>Cheksiz tekshiruv</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>Surat skaneri</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>Oilaviy panel</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>Manipulyatsiya detektori</span>
-        </div>
-        <button class="plan-btn">Pro olish</button>
-      </div>
-      <div class="plan">
-        <div class="plan-name">Biznes</div>
-        <div class="plan-price">99 000 so'm</div>
-        <div class="plan-period">oyiga</div>
-        <div class="plan-features">
-          <span><i class="ti ti-check" aria-hidden="true"></i>Jamoa uchun</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>API kirish</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>Hisobot va analytics</span>
-          <span><i class="ti ti-check" aria-hidden="true"></i>24/7 qo'llab-quvvatlash</span>
-        </div>
-        <button class="plan-btn">Bog'lanish</button>
-      </div>
+    <div class="scan-input-row" id="tab-text" style="display:none">
+      <textarea rows="3" id="scan-text-input" placeholder="Sms yoki xabarni bu yerga yozing..."></textarea>
+      <button class="scan-btn" onclick="runScan()">Tekshirish</button>
     </div>
-  </div>
-
-  <div class="footer">
-    <div class="logo" style="font-size:13px">
-      <div class="logo-icon" style="width:22px;height:22px;font-size:11px"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
-      CyberShield AI
+    <div class="scan-result" id="scan-result">
+      <svg viewBox="0 0 24 24" id="result-icon"></svg>
+      <div id="result-text"></div>
     </div>
-    <div class="footer-links">
-      <span>Maxfiylik siyosati</span>
-      <span>Foydalanish shartlari</span>
-      <span>Bog'lanish</span>
-    </div>
-    <span>© 2025 CyberShield AI</span>
   </div>
 </div>
 
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal"><div class="stat-num">2M+</div><div class="stat-label">Tekshirilgan havola</div></div>
+  <div class="stat reveal"><div class="stat-num">98.4%</div><div class="stat-label">Aniqlik darajasi</div></div>
+  <div class="stat reveal"><div class="stat-num">50 000+</div><div class="stat-label">Himoyalangan foydalanuvchi</div></div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Imkoniyatlar</div>
+    <h2 class="section-title">Boshqalar qilmagan narsalarni qilamiz</h2>
+    <p class="section-sub">Oddiy antivirus emas — real vaqtda o'zbek tilida tushuntiruvchi AI himoyachisi</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon" style="background:#E1F5EE">
+        <svg viewBox="0 0 24 24" style="stroke:var(--green)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </div>
+      <h3>Havola tekshirish</h3>
+      <p>Har qanday URL manzilni 3 soniyada 50+ parametr bo'yicha tahlil qiladi. Fishing, scam va zararli saytlarni aniqlaydi.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon" style="background:#E6F1FB">
+        <svg viewBox="0 0 24 24" style="stroke:#185FA5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h3>Manipulyatsiya detektori</h3>
+      <p>Aldov xabarlarini psixologik tahlil qiladi. "Yutdingiz!", "Tezda bosing!" kabi scam uslublarini topadi.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon" style="background:#FAEEDA">
+        <svg viewBox="0 0 24 24" style="stroke:#854F0B"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      </div>
+      <h3>Rasm skaneri</h3>
+      <p>Screenshot yuboring — AI undagi soxta saytlar, fishing havolalar va aldov sxemalarini topadi.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon" style="background:#FBEAF0">
+        <svg viewBox="0 0 24 24" style="stroke:#993556"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Oilaviy himoya</h3>
+      <p>Farzandlaringizni onlayn xavflardan saqlang. Maxsus bolalar rejimi va ota-ona nazorat paneli.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon" style="background:#EAF3DE">
+        <svg viewBox="0 0 24 24" style="stroke:#3B6D11"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Real vaqt monitoring</h3>
+      <p>Fon rejimida ishlaydi va shubhali harakatlar aniqlanganda darhol xabar beradi.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon" style="background:#EEEDFE">
+        <svg viewBox="0 0 24 24" style="stroke:#534AB7"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <h3>Kunlik hisobot</h3>
+      <p>Har kuni qancha tahdid bloklangani, qanday xavflar aniqlangani haqida tushunarli hisobot olasiz.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THREATS -->
+<section style="background:var(--bg2)" id="threats">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Qanday tahdidlar</div>
+    <h2 class="section-title">Sizni nimadan himoya qilamiz?</h2>
+    <p class="section-sub">O'zbekistonda eng ko'p uchraydigan kiberxavflar</p>
+  </div>
+  <div class="threats-grid">
+    <div class="threat-card reveal">
+      <div class="threat-icon" style="background:#FCEBEB"><svg viewBox="0 0 24 24" style="stroke:#e24b4a"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div><h4>Fishing saytlar</h4><p>Bank va davlat saytlarini taqlid qiluvchi soxta sahifalar</p></div>
+    </div>
+    <div class="threat-card reveal">
+      <div class="threat-icon" style="background:#FAEEDA"><svg viewBox="0 0 24 24" style="stroke:#BA7517"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div><h4>SMS scam</h4><p>"Yutdingiz" yoki "Kartangiz bloklandi" xabarlari</p></div>
+    </div>
+    <div class="threat-card reveal">
+      <div class="threat-icon" style="background:#FCEBEB"><svg viewBox="0 0 24 24" style="stroke:#e24b4a"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+      <div><h4>Zararli dasturlar</h4><p>Telefoningizga kirib ma'lumot o'g'irlovchi ilovalar</p></div>
+    </div>
+    <div class="threat-card reveal">
+      <div class="threat-icon" style="background:#FBEAF0"><svg viewBox="0 0 24 24" style="stroke:#993556"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div><h4>Ijtimoiy muhandislik</h4><p>Sizni aldab shaxsiy ma'lumotlaringizni olishga urinish</p></div>
+    </div>
+    <div class="threat-card reveal">
+      <div class="threat-icon" style="background:#FAEEDA"><svg viewBox="0 0 24 24" style="stroke:#BA7517"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div><h4>Parol o'g'irlash</h4><p>Brute force va dictionary hujumlari orqali kirishga urinish</p></div>
+    </div>
+    <div class="threat-card reveal">
+      <div class="threat-icon" style="background:#FCEBEB"><svg viewBox="0 0 24 24" style="stroke:#e24b4a"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div><h4>Soxta do'konlar</h4><p>Pul olib mahsulot jo'natmaydigan yolg'on internet do'konlar</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Qanday ishlaydi</div>
+    <h2 class="section-title">3 qadam — 3 soniya</h2>
+    <p class="section-sub">Hech qanday texnik bilim kerak emas</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Shubhali narsani yuboring</h4>
+        <p>Havola, xabar, surat yoki faylni CyberShield'ga yuboring — saytdan yoki ilovadan, istalgan qurilmadan.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>AI tahlil qiladi</h4>
+        <p>Sun'iy intellekt 3 soniyada 50+ parametr bo'yicha tekshiradi — xavf darajasi, manba, psixologik manipulyatsiya va boshqalar.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Natija va maslahat olasiz</h4>
+        <p>Xavfsizmi yoki yo'qmi — oddiy o'zbek tilida tushuntiriladi. Nima qilish kerakligi aniq aytiladi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="test-bg" id="about">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Foydalanuvchilar</div>
+    <h2 class="section-title">Ular nima deydi?</h2>
+  </div>
+  <div class="testimonials">
+    <div class="testimonial reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Telegram orqali kelgan havolani tekshirdim — fishing ekan. CyberShield bo'lmaganida kartam ma'lumotlarini yo'qotardim."</p>
+      <div class="reviewer">
+        <div class="avatar" style="background:#E1F5EE;color:#0F6E56">AK</div>
+        <div class="reviewer-info"><div class="name">Aziz Karimov</div><div class="role">Toshkent, tadbirkor</div></div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Bolalarim uchun oilaviy rejimni yoqdim. Endi internetda nima ko'rishayotganini bilib turaman. Ajoyib ilova!"</p>
+      <div class="reviewer">
+        <div class="avatar" style="background:#E6F1FB;color:#185FA5">MN</div>
+        <div class="reviewer-info"><div class="name">Malika Nazarova</div><div class="role">Samarqand, o'qituvchi</div></div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="stars">★★★★★</div>
+      <p>"IT kompaniyamiz uchun biznes tarifni oldik. Xodimlarimizning kiberxavfsizlik darajasi sezilarli oshdi."</p>
+      <div class="reviewer">
+        <div class="avatar" style="background:#FAEEDA;color:#854F0B">SR</div>
+        <div class="reviewer-info"><div class="name">Sanjar Rahimov</div><div class="role">Namangan, IT direktor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Narxlar</div>
+    <h2 class="section-title">Har kim uchun mos tarif</h2>
+    <p class="section-sub">Boshlash bepul — katta imkoniyatlar bilan</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="plan reveal">
+      <div class="plan-name">Bepul</div>
+      <div class="plan-price">0 so'm</div>
+      <div class="plan-period">har doim bepul</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Kuniga 5 ta tekshiruv</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Havola skaneri</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>O'zbek tilida natija</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Asosiy tahdid xabarlari</li>
+      </ul>
+      <button class="plan-btn">Boshlash</button>
+    </div>
+    <div class="plan featured reveal">
+      <div class="plan-badge">Eng mashhur</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">29 000 so'm</div>
+      <div class="plan-period">oyiga</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cheksiz tekshiruv</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Rasm va fayl skaneri</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Manipulyatsiya detektori</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Oilaviy panel (5 kishi)</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Kunlik hisobot</li>
+      </ul>
+      <button class="plan-btn">Pro olish</button>
+    </div>
+    <div class="plan reveal">
+      <div class="plan-name">Biznes</div>
+      <div class="plan-price">99 000 so'm</div>
+      <div class="plan-period">oyiga</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Jamoa uchun (cheksiz)</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>API kirishim</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Kengaytirilgan analytics</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>24/7 qo'llab-quvvatlash</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Maxsus integratsiya</li>
+      </ul>
+      <button class="plan-btn">Bog'lanish</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Hoziroq himoyalanishni boshlang</h2>
+  <p>Ro'yxatdan o'tish bepul — 30 soniya ichida tayyorsiz</p>
+  <button class="btn-white" onclick="window.scrollTo({top:0,behavior:'smooth'})">Bepul boshlash</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <div class="logo-icon" style="width:28px;height:28px;font-size:13px">
+      <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <span>CyberShield AI</span>
+  </a>
+  <div class="footer-links">
+    <a href="#">Maxfiylik siyosati</a>
+    <a href="#">Foydalanish shartlari</a>
+    <a href="#">Bog'lanish</a>
+    <a href="#">Telegram</a>
+  </div>
+  <span class="footer-copy">© 2025 CyberShield AI. Barcha huquqlar himoyalangan.</span>
+</footer>
+
 <script>
-function checkLink(){
-  var input=document.getElementById('link-input');
-  var result=document.getElementById('scan-result');
-  var val=input.value.trim();
-  if(!val){input.focus();return;}
-  result.className='scan-result';
-  result.style.display='flex';
-  result.innerHTML='<i class="ti ti-loader-2" style="font-size:16px"></i> Tahlil qilinmoqda...';
-  result.style.background='var(--color-background-secondary)';
-  result.style.color='var(--color-text-secondary)';
-  setTimeout(function(){
-    var suspicious=['bit.ly','free-prize','win','click-here','login-secure','verify-account'];
-    var isBad=suspicious.some(function(s){return val.toLowerCase().includes(s)});
-    if(isBad){
-      result.className='scan-result danger';
-      result.innerHTML='<i class="ti ti-shield-x" style="font-size:16px"></i> Xavfli! Bu havola fishing yoki scam bo\'lishi mumkin.';
-    } else {
-      result.className='scan-result safe';
-      result.innerHTML='<i class="ti ti-shield-check" style="font-size:16px"></i> Xavfsiz ko\'rinadi. Biroq ehtiyot bo\'ling.';
-    }
-  },1200);
+var currentTab = 'link';
+
+function switchTab(btn, tab) {
+  document.querySelectorAll('.scan-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentTab = tab;
+  document.getElementById('tab-link').style.display = tab === 'link' ? 'flex' : 'none';
+  document.getElementById('tab-text').style.display = tab === 'text' ? 'flex' : 'none';
+  document.getElementById('scan-result').style.display = 'none';
 }
-document.getElementById('link-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkLink();});
+
+async function runScan() {
+  var val = currentTab === 'link'
+    ? document.getElementById('scan-input-main').value.trim()
+    : document.getElementById('scan-text-input').value.trim();
+  if (!val) return;
+
+  var res = document.getElementById('scan-result');
+  var icon = document.getElementById('result-icon');
+  var text = document.getElementById('result-text');
+
+  res.className = 'scan-result loading';
+  icon.innerHTML = '<path d="M21 12a9 9 0 1 1-6.219-8.56"/>';
+  text.textContent = 'AI tahlil qilmoqda...';
+
+  try {
+    var response = await fetch('/api/check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: val, type: currentTab })
+    });
+    var data = await response.json();
+
+    if (data.daraja === 'xavfli') {
+      res.className = 'scan-result danger';
+      icon.innerHTML = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+      text.innerHTML = '<strong>Xavfli!</strong> ' + data.sabab + '<br><span style="margin-top:4px;display:block;font-size:13px">' + data.maslahat + '</span>';
+    } else if (data.daraja === 'shubhali') {
+      res.className = 'scan-result danger';
+      icon.innerHTML = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+      text.innerHTML = '<strong>Shubhali!</strong> ' + data.sabab + '<br><span style="margin-top:4px;display:block;font-size:13px">' + data.maslahat + '</span>';
+    } else {
+      res.className = 'scan-result safe';
+      icon.innerHTML = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>';
+      text.innerHTML = '<strong>Xavfsiz.</strong> ' + data.sabab + '<br><span style="margin-top:4px;display:block;font-size:13px">' + data.maslahat + '</span>';
+    }
+  } catch(err) {
+    res.className = 'scan-result danger';
+    icon.innerHTML = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+    text.innerHTML = '<strong>Xatolik!</strong> Tekshirib bo\'lmadi. Ehtiyot bo\'ling va shaxsiy ma\'lumot bermang.';
+  }
+}
+
+document.getElementById('scan-input-main').addEventListener('keydown', function(e){ if(e.key==='Enter') runScan(); });
+document.getElementById('scan-text-input').addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();runScan();} });
+
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
 </script>
+</body>
+</html>
