@@ -10,30 +10,24 @@ export default async function handler(req, res) {
   if (!text) return res.status(400).json({ error: 'Text required' });
 
   const prompt = type === 'link'
-    ? `Siz kiberxavfsizlik mutaxassisisiz. Quyidagi URL havolani tahlil qiling va xavfsiz yoki xavfli ekanini aniqlang.
+    ? `Siz kiberxavfsizlik mutaxassisisiz. Quyidagi URL havolani tahlil qiling.
 
 Havola: ${text}
 
-Tahlil qiling:
-1. Domen nomi shubhalimi?
-2. Fishing yoki scam belgilari bormi?
-3. Qisqartirilgan havola (bit.ly, tinyurl va h.k.) mi?
-4. Soxta bank/davlat saytimi?
-
 Javobni FAQAT quyidagi JSON formatda bering, boshqa hech narsa yozmang:
-{"xavfli": true/false, "daraja": "xavfsiz/shubhali/xavfli", "sabab": "qisqa sabab o'zbek tilida", "maslahat": "nima qilish kerak o'zbek tilida"}`
-    : `Siz kiberxavfsizlik mutaxassisisiz. Quyidagi xabarni tahlil qiling va fishing, scam yoki manipulyatsiya belgilarini aniqlang.
+{"xavfli": true, "daraja": "xavfli", "sabab": "sabab shu yerda", "maslahat": "maslahat shu yerda"}
+
+Misol javob:
+{"xavfli": false, "daraja": "xavfsiz", "sabab": "Havola ishonchli ko'rinadi, shubhali belgilar yo'q.", "maslahat": "Baribir shaxsiy ma'lumotlaringizni baham ko'rmang."}`
+    : `Siz kiberxavfsizlik mutaxassisisiz. Quyidagi xabarni tahlil qiling.
 
 Xabar: ${text}
 
-Tahlil qiling:
-1. Psixologik bosim bor mi? ("tezda", "hoziroq", "faqat bugun")
-2. Pul yoki sovg'a va'dasi bormi?
-3. Shaxsiy ma'lumot so'rayaptimi?
-4. Qo'rqitish yoki shoshiltirish bormi?
-
 Javobni FAQAT quyidagi JSON formatda bering, boshqa hech narsa yozmang:
-{"xavfli": true/false, "daraja": "xavfsiz/shubhali/xavfli", "sabab": "qisqa sabab o'zbek tilida", "maslahat": "nima qilish kerak o'zbek tilida"}`;
+{"xavfli": true, "daraja": "xavfli", "sabab": "sabab shu yerda", "maslahat": "maslahat shu yerda"}
+
+Misol javob:
+{"xavfli": true, "daraja": "xavfli", "sabab": "Bu xabar scam belgilarini o'z ichiga oladi.", "maslahat": "Hech qanday ma'lumot bermang va havolani ochmang."}`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -51,16 +45,55 @@ Javobni FAQAT quyidagi JSON formatda bering, boshqa hech narsa yozmang:
     });
 
     const data = await response.json();
-    const raw = data.content?.[0]?.text || '{}';
-    const clean = raw.replace(/```json|```/g, '').trim();
-    const result = JSON.parse(clean);
-    res.status(200).json(result);
+    
+    // API xatosi bo'lsa
+    if (data.error) {
+      return res.status(200).json({
+        xavfli: false,
+        daraja: 'shubhali',
+        sabab: 'AI tahlil qila olmadi: ' + (data.error.message || 'noma\'lum xato'),
+        maslahat: 'Ehtiyot bo\'ling va shaxsiy ma\'lumotlaringizni baham ko\'rmang.'
+      });
+    }
+
+    const raw = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : '';
+    
+    if (!raw) {
+      return res.status(200).json({
+        xavfli: false,
+        daraja: 'shubhali',
+        sabab: 'AI javob bermadi.',
+        maslahat: 'Ehtiyot bo\'ling va shaxsiy ma\'lumotlaringizni baham ko\'rmang.'
+      });
+    }
+
+    // JSON ni topib olish
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      return res.status(200).json({
+        xavfli: false,
+        daraja: 'shubhali', 
+        sabab: 'Natija aniqlanmadi.',
+        maslahat: 'Ehtiyot bo\'ling.'
+      });
+    }
+
+    const result = JSON.parse(jsonMatch[0]);
+    
+    // Maydonlar borligini tekshirish
+    return res.status(200).json({
+      xavfli: result.xavfli || false,
+      daraja: result.daraja || 'shubhali',
+      sabab: result.sabab || 'Tahlil qilindi.',
+      maslahat: result.maslahat || 'Ehtiyot bo\'ling.'
+    });
+
   } catch (err) {
-    res.status(500).json({
+    return res.status(200).json({
       xavfli: false,
       daraja: 'shubhali',
-      sabab: 'Tahlil vaqtida xatolik yuz berdi.',
-      maslahat: 'Ehtiyot bo\'ling va shaxsiy ma\'lumot bermang.'
+      sabab: 'Texnik xatolik yuz berdi.',
+      maslahat: 'Ehtiyot bo\'ling va shaxsiy ma\'lumotlaringizni baham ko\'rmang.'
     });
   }
 }
